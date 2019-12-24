@@ -12,8 +12,6 @@ import com.vidolima.ditiow.util.CopyPropertiesHelper;
  */
 public abstract class AbstractResource<B> {
 
-  // TODO: create annotations to match to the business entity? @BusinessProperty("")
-
   private Class<B> businessClass;
 
   public AbstractResource(Class<B> businessClass) {

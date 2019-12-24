@@ -1,6 +1,6 @@
 package com.vidolima.ditiow.util;
 
-import com.vidolima.copypropertiesassembler.exception.IllegalAssemblerConversionException;
+import com.vidolima.ditiow.exception.IllegalCopyException;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.BeanUtils;
@@ -30,7 +30,7 @@ public final class CopyPropertiesHelper {
       BeanUtils.copyProperties(obj, targetObject);
       return targetObject;
     } catch (InstantiationException | IllegalAccessException e) {
-      throw new IllegalAssemblerConversionException("Could not create new instance of the target class.", e);
+      throw new IllegalCopyException("Could not create new instance of the target class.", e);
     }
   }
 
