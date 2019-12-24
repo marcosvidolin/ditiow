@@ -26,14 +26,68 @@ Ditiow is an aspect library designed to help you safely expose features of your 
 
     ```java
     @Bean
-    public DitiowAspect ditiowAspect() {
+    public DitiowAspect ditiow() {
         return new DitiowAspect();
     }
     ```
 
 ## How to use
 
-1. Enable the conversion by adding @ResourseResponse annotation on controller classes(s)
+JPA/Entity class with all fields. Nothing needs to be done at this point.
+
+```java
+@Entity
+@Table(name = "post")
+public class Post {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "POST_CD_POST", unique = true)
+  private Long code;
+
+  @Type(type="org.hibernate.type.UUIDCharType")
+  @Column(name = "POST_CD_UUID", unique = true, updatable = false)
+  private UUID uuid;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(unique = true, updatable = false)
+  private User author;
+
+  @Column(name = "POST_TX_CONTENT")
+  private String content;
+
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "POST_DT_CREATE", updatable = false)
+  private Date publishedAt;
+
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  private Collection<Comment> comments;
+  
+  // ...
+  
+}
+```
+
+### Returning a resource from the controller
+
+- Here we specify the resource or how our Post object will be exposed by the API. 
+Note that the name of the attributes are the same as Post. 
+
+    *But I don't want to expose some attributes like database id and comments, for example.*
+
+    ```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public class PostGetResource {
+      private UUID uuid;
+      private User author;
+      private String content;
+      private Date publishedAt;
+      // ...
+    }
+    ```
+
+- Enable conversion by adding @ResourseResponse annotation on controller class with the "PostGetResource" as the value of the annotation.
 
     ```java
       @GetMapping(path = "/posts/{uuid}")
@@ -44,6 +98,8 @@ Ditiow is an aspect library designed to help you safely expose features of your 
       }
     ```
 
+     Here the magic happens. The response will be converted to a PostGetResourse object that is inserted into the body of the ResponseEntity object. 
+
 ## TODO
 
 - Create an annotation to specify the attribute name of the resource (without having to match the name of the business class);
@@ -51,3 +107,4 @@ Ditiow is an aspect library designed to help you safely expose features of your 
 
 ## Contributors
 
+[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/0)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/0)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/1)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/1)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/2)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/2)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/3)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/3)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/4)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/4)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/5)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/5)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/6)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/6)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/7)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/7)
