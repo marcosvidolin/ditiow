@@ -1,7 +1,7 @@
 package com.vidolima.ditiow.exception;
 
 /**
- * The class {@code IlligalCopyException} is used to indicates a
+ * The class {@code IllegalCopyException} is used to indicates a
  * {@link RuntimeException} in a conversion.
  *
  * @author Marcos Vidolin
