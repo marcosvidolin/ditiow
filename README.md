@@ -33,7 +33,7 @@ Ditiow is an aspect library designed to help you safely expose features of your 
 
 ## How to use
 
-JPA/Entity class with all fields. Nothing needs to be done at this point.
+JPA/Entity class with all fields. **Nothing needs to be done at this point**.
 
 ```java
 @Entity
@@ -77,7 +77,6 @@ Note that the name of the attributes are the same as Post.
     *But I don't want to expose some attributes like database id and comments, for example.*
 
     ```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
     public class PostGetResource {
       private UUID uuid;
       private User author;
@@ -99,6 +98,31 @@ Note that the name of the attributes are the same as Post.
     ```
 
      Here the magic happens. The response will be converted to a PostGetResourse object that is inserted into the body of the ResponseEntity object. 
+
+### Retrieving a resource as a parameter
+
+```java
+public class PostCreateResource extends AbstractResource<Post> {
+  private UUID uuid;
+  @NotEmpty
+  @Length(min = 50, max = 300)
+  private String content;
+  public PostCreateResource() {
+    super(Post.class);
+  }
+  // ...
+}
+```
+
+```java
+  @PostMapping(path = "/posts")
+  @ResponseResource(PostGetResource.class)
+  public ResponseEntity<?> create(@Valid @RequestBody PostCreateResource resource) {
+    Post post = resource.toBusiness();
+    post.setAuthor(this.currentUserUtil.getUser());
+    return ResponseEntity.ok(this.postBusiness.create(post));
+  }
+```
 
 ## TODO
 

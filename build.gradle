@@ -1,7 +1,79 @@
-apply plugin: 'java-library'
+buildscript {
+    ext.projectName = 'ditiow'
+    ext.projectGroup = 'com.vidolima'
+    ext.projectArtifact = 'ditiow'
+    ext.projectVersion = '1.0.0'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+plugins {
+    id "com.jfrog.bintray" version "1.8.4"
+}
+
+group projectGroup
+version projectVersion
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+}
 
 repositories {
     jcenter()
+}
+
+publishing {
+    publications {
+        publish(MavenPublication) {
+            from components.java
+            groupId projectGroup
+            artifactId projectArtifact
+            version projectVersion
+        }
+    }
+}
+
+bintray {
+    user = "marcosvidolin"
+    key = "f83c9c842d59b5a74bb7decebd55b827affd6aec"
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = projectName
+        licenses = ['MIT']
+        publicDownloadNumbers = true
+        websiteUrl = 'https://github.com/marcosvidolin/ditiow'
+        issueTrackerUrl = 'https://github.com/marcosvidolin/ditiow/issues'
+        vcsUrl = 'https://github.com/marcosvidolin/ditiow.git'
+        githubRepo = 'marcosvidolin/ditiow'
+        version {
+            name = projectVersion
+            vcsTag = projectVersion
+            gpg {
+                sign = true
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
 
 dependencies {
