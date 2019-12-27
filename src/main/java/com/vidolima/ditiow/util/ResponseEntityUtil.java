@@ -18,7 +18,7 @@ public final class ResponseEntityUtil {
       copied = CopyPropertiesHelper.createCopy((Collection<?>) response.getBody(), classOfBody);
     } else {
       copied = CopyPropertiesHelper.createCopy(response.getBody(), classOfBody);
-    };
+    }
     return new ResponseEntity(copied, response.getHeaders(), response.getStatusCode());
   }
 
