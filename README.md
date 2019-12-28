@@ -1,7 +1,7 @@
 # ditiow🦸
 Ditiow is an aspect library designed to help you safely expose features of your Spring REST API without having to expose data from the persistence or business layer of your application.
 
-[ ![Download](https://api.bintray.com/packages/marcosvidolin/maven/ditiow/images/download.svg?version=1.0.0) ](https://bintray.com/marcosvidolin/maven/ditiow/1.0.0/link) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5f79c15a8aa44706afcf49261c1a6ef1)](https://www.codacy.com/manual/marcosvidolin/ditiow?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marcosvidolin/ditiow&amp;utm_campaign=Badge_Grade)
+[ ![Download](https://api.bintray.com/packages/marcosvidolin/maven/ditiow/images/download.svg?version=1.0.0) ](https://bintray.com/marcosvidolin/maven/ditiow/1.0.0/link) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5f79c15a8aa44706afcf49261c1a6ef1)](https://www.codacy.com/manual/marcosvidolin/ditiow?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marcosvidolin/ditiow&amp;utm_campaign=Badge_Grade)[![Build Status](https://travis-ci.org/marcosvidolin/copy-properties-assembler.svg?branch=master)](https://travis-ci.org/marcosvidolin/copy-properties-assembler)
 
 ## Setup
 
