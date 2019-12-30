@@ -39,8 +39,8 @@ publishing {
 }
 
 bintray {
-    user = "marcosvidolin"
-    key = "f83c9c842d59b5a74bb7decebd55b827affd6aec"
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRY_API_KEY')
     configurations = ['archives']
     pkg {
         repo = 'maven'
