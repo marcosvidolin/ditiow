@@ -1,4 +1,5 @@
-# ![ditiow][logo]
+![ditiow][logo]
+![ditiow](logo.png)
 
 Ditiow is an aspect library designed to help you safely expose features of your Spring REST API without having to expose data from the persistence or business layer of your application.
 
