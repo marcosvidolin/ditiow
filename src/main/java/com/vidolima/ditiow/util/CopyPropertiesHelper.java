@@ -37,8 +37,7 @@ public final class CopyPropertiesHelper {
           field.setAccessible(true);
           field.set(copy, innerCopy);
         } catch (IllegalAccessException | NoSuchFieldException e) {
-          // TODO: fazer alguma coisa?
-          System.out.println(e.getMessage());
+          // TODO: ?
         }
       }
     }
@@ -85,7 +84,7 @@ public final class CopyPropertiesHelper {
     }
     Collection<T> targetObject = new ArrayList<>();
     for (Object obj : objs) {
-      targetObject.add(createCopy(obj, classOfTargetObject));
+      targetObject.add(copy(obj, classOfTargetObject));
     }
     return targetObject;
   }
