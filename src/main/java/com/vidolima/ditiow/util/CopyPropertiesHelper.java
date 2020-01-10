@@ -53,7 +53,7 @@ public final class CopyPropertiesHelper {
    * @param <T> return type
    * @return T
    */
-  static <T> T createCopy(final Object obj, final Class<T> classOfTargetObject) {
+  protected static <T> T createCopy(final Object obj, final Class<T> classOfTargetObject) {
     if (obj == null) {
       return null;
     }
@@ -79,7 +79,7 @@ public final class CopyPropertiesHelper {
    * @param <T> return type
    * @return T
    */
-  static <T> Collection<T> createCopy(Collection<?> objs, final Class<T> classOfTargetObject) {
+  protected static <T> Collection<T> createCopy(Collection<?> objs, final Class<T> classOfTargetObject) {
     if (objs == null) {
       return null;
     }

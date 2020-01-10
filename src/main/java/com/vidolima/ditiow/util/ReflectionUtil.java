@@ -22,7 +22,7 @@ public final class ReflectionUtil {
    * @throws NoSuchFieldException
    * @throws IllegalAccessException
    */
-  static Object getFieldValue(final String fieldName, final Object object)
+  protected static Object getFieldValue(final String fieldName, final Object object)
       throws NoSuchFieldException, IllegalAccessException {
     Field field = object.getClass().getDeclaredField(fieldName);
     field.setAccessible(true);
@@ -36,7 +36,7 @@ public final class ReflectionUtil {
    * @param clazz the class to compare
    * @return true if is assignable
    */
-  static boolean isFieldTypeOf(final Field field, final Class<?> clazz) {
+  protected static boolean isFieldTypeOf(final Field field, final Class<?> clazz) {
     Class<?> type = ReflectionUtil.getFieldGenricType(field);
     if (type.isPrimitive()) {
       return false;
@@ -53,7 +53,7 @@ public final class ReflectionUtil {
    * @param field
    * @return the class of the field
    */
-  static Class<?> getFieldGenricType(final Field field) {
+  protected static Class<?> getFieldGenricType(final Field field) {
     int index = 0; // TODO: esse index deve ser sempre zero?
     Assert.notNull(field, "Parameter 'field' must be not null!");
     Assert.state(index > -1, "Parameter 'index' must be > -1!");
