@@ -1,6 +1,8 @@
 package com.vidolima.ditiow.util;
 
 import com.vidolima.ditiow.exception.IllegalCopyException;
+import com.vidolima.ditiow.resource.AbstractResource;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.BeanUtils;
@@ -8,10 +10,40 @@ import org.springframework.beans.BeanUtils;
 /**
  * A helper class to copy properties from an object.
  *
- * @author mvidolin
+ * @author Marcos A. Vidolin de Lima
  * @since Dez 23, 2019
  */
 public final class CopyPropertiesHelper {
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param object object to be copied
+   * @param classOfTargetObject the class of the target object
+   * @param <T> return type
+   * @return T
+   */
+  public static <T> T copy(final Object object, final Class<T> classOfTargetObject) {
+
+    T copy = createCopy(object, classOfTargetObject);
+
+    Field[] fields = copy.getClass().getDeclaredFields();
+    for (Field field : fields) {
+      Class<?> fieldGenericType = ReflectionUtil.getFieldGenricType(field);
+      if (ReflectionUtil.isFieldTypeOf(field, AbstractResource.class)) {
+        try {
+          Object value = ReflectionUtil.getFieldValue(field.getName(), object);
+          T innerCopy = (T) createCopy(value, fieldGenericType);
+          field.setAccessible(true);
+          field.set(copy, innerCopy);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+          // TODO: fazer alguma coisa?
+          System.out.println(e.getMessage());
+        }
+      }
+    }
+    return copy;
+  }
 
   /**
    * Return a new object (instance of "T") with all values copied from the the given object.
@@ -21,10 +53,15 @@ public final class CopyPropertiesHelper {
    * @param <T> return type
    * @return T
    */
-  public static <T> T createCopy(final Object obj, final Class<T> classOfTargetObject) {
+  static <T> T createCopy(final Object obj, final Class<T> classOfTargetObject) {
     if (obj == null) {
       return null;
     }
+
+    if (obj instanceof Collection<?>) {
+      return (T) createCopy((Collection<?>) obj, classOfTargetObject);
+    }
+
     try {
       T targetObject = classOfTargetObject.newInstance();
       BeanUtils.copyProperties(obj, targetObject);
@@ -42,7 +79,7 @@ public final class CopyPropertiesHelper {
    * @param <T> return type
    * @return T
    */
-  public static <T> Collection<T> createCopy(Collection<?> objs, final Class<T> classOfTargetObject) {
+  static <T> Collection<T> createCopy(Collection<?> objs, final Class<T> classOfTargetObject) {
     if (objs == null) {
       return null;
     }

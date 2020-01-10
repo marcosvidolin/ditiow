@@ -1,6 +1,5 @@
 package com.vidolima.ditiow.util;
 
-import java.util.Collection;
 import org.springframework.http.ResponseEntity;
 
 public final class ResponseEntityUtil {
@@ -13,12 +12,7 @@ public final class ResponseEntityUtil {
    * @return ResponseEntity
    */
   public static ResponseEntity<?> convertBody(final ResponseEntity<?> response, final Class<?> classOfBody) {
-    Object copied = null;
-    if (response.getBody() instanceof Collection<?>) {
-      copied = CopyPropertiesHelper.createCopy((Collection<?>) response.getBody(), classOfBody);
-    } else {
-      copied = CopyPropertiesHelper.createCopy(response.getBody(), classOfBody);
-    }
+    Object copied = CopyPropertiesHelper.copy(response.getBody(), classOfBody);
     return new ResponseEntity(copied, response.getHeaders(), response.getStatusCode());
   }
 
