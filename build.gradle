@@ -2,7 +2,7 @@ buildscript {
     ext.projectName = 'ditiow'
     ext.projectGroup = 'com.vidolima'
     ext.projectArtifact = 'ditiow'
-    ext.projectVersion = '1.0.0'
+    ext.projectVersion = '0.1.1'
 
     repositories {
         mavenCentral()
@@ -39,8 +39,8 @@ publishing {
 }
 
 bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRY_API_KEY')
+    user = "marcosvidolin"
+    key = "3793c959d0d5d42ebf3ed2f54d7b2673b950f156"
     configurations = ['archives']
     pkg {
         repo = 'maven'
