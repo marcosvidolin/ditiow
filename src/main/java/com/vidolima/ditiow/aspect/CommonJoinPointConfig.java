@@ -5,7 +5,7 @@ import org.aspectj.lang.annotation.Pointcut;
 /**
  * A main class to store all the pointcuts.
  *
- * @author mvidolin
+ * @author Marcos A. Vidolin de Lima
  * @since Dez 23, 2019
  */
 public class CommonJoinPointConfig {

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * Method level annotation to turn on automatic object conversion of a method parameter (resource).
  * Adding it to method enables conversion for it.
  *
- * @author mvidolin
+ * @author Marcos A. Vidolin de Lima
  * @since Dez 23, 2019
  */
 @Documented

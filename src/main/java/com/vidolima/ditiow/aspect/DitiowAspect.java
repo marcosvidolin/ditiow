@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
  * An aspect class to intercept rest controllers methods and convert objects (POJOs)
  * into other objects according the value of the annotation.
  *
- * @author mvidolin
+ * @author Marcos A. Vidolin de Lima
  * @since Dez 23, 2019
  */
 @Aspect
