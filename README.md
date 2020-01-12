@@ -74,13 +74,14 @@ public class Post {
 
 ### Returning a resource from the controller
 
-- Here we specify the resource or how our Post object will be exposed by the API. 
-Note that the name of the attributes are the same as Post. 
+- Here we specify the resource or how our Post object will be exposed by the API.
+We do this by extending the AbstractResource class and informing the domain class (Post) as type. 
+Note that the name of the attributes are the same as Post.
 
     *But I don't want to expose some attributes like database id and comments, for example.*
 
     ```java
-    public class PostGetResource {
+    public class PostGetResource extends AbstractResource<Post> {
       private UUID uuid;
       private User author;
       private String content;
@@ -95,7 +96,7 @@ Note that the name of the attributes are the same as Post.
       @GetMapping(path = "/posts/{uuid}")
       @ResponseResource(PostGetResource.class)
       public ResponseEntity<?> get(@PathVariable UUID uuid) {
-        Post post = this.postBusiness.findPostByUuid(uuid);
+        Post post = this.postService.findPostByUuid(uuid);
         return ResponseEntity.ok(post);
       }
     ```
@@ -110,9 +111,6 @@ public class PostCreateResource extends AbstractResource<Post> {
   @NotEmpty
   @Length(min = 50, max = 300)
   private String content;
-  public PostCreateResource() {
-    super(Post.class);
-  }
   // ...
 }
 ```
@@ -121,15 +119,15 @@ public class PostCreateResource extends AbstractResource<Post> {
   @PostMapping(path = "/posts")
   @ResponseResource(PostGetResource.class)
   public ResponseEntity<?> create(@Valid @RequestBody PostCreateResource resource) {
-    Post post = resource.toBusiness();
+    Post post = resource.toDomain();
     post.setAuthor(this.currentUserUtil.getUser());
-    return ResponseEntity.ok(this.postBusiness.create(post));
+    return ResponseEntity.ok(this.postService.create(post));
   }
 ```
 
 ## TODO
 
-- Create an annotation to specify the attribute name of the resource (without having to match the name of the business class);
+- Create an annotation to specify the attribute name of the resource (without having to match the name of the domain class);
 - Unit tests; 
 
 ## Contributors
