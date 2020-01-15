@@ -1,6 +1,7 @@
 package com.vidolima.ditiow.resource;
 
-import com.vidolima.ditiow.util.CopyPropertiesHelper;
+import com.vidolima.ditiow.assembler.Assembler;
+import com.vidolima.ditiow.assembler.DomainAssembler;
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -15,6 +16,9 @@ public abstract class AbstractResource<B> {
 
   private Class<B> domainClass;
 
+  /**
+   * Default constructor.
+   */
   public AbstractResource() {
     this.domainClass = ((Class<B>) ((ParameterizedType) getClass()
         .getGenericSuperclass()).getActualTypeArguments()[0]);
@@ -27,7 +31,8 @@ public abstract class AbstractResource<B> {
    * @return the object
    */
   public <B> B toDomain() {
-    return (B) CopyPropertiesHelper.copy(this, domainClass);
+    Assembler assembler = new DomainAssembler();
+    return (B) assembler.assembly(this, domainClass);
   }
 
 }

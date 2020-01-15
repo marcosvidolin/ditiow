@@ -1,8 +1,9 @@
-package com.vidolima.ditiow.util;
+package com.vidolima.ditiow.assembler.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import org.springframework.util.Assert;
 
 /**
@@ -22,7 +23,7 @@ public final class ReflectionUtil {
    * @throws NoSuchFieldException
    * @throws IllegalAccessException
    */
-  protected static Object getFieldValue(final String fieldName, final Object object)
+  public static Object getFieldValue(final String fieldName, final Object object)
       throws NoSuchFieldException, IllegalAccessException {
     Field field = object.getClass().getDeclaredField(fieldName);
     field.setAccessible(true);
@@ -36,7 +37,7 @@ public final class ReflectionUtil {
    * @param clazz the class to compare
    * @return true if is assignable
    */
-  protected static boolean isFieldTypeOf(final Field field, final Class<?> clazz) {
+  public static boolean isFieldTypeOf(final Field field, final Class<?> clazz) {
     Class<?> type = ReflectionUtil.getFieldGenricType(field);
     if (type.isPrimitive()) {
       return false;
@@ -53,8 +54,8 @@ public final class ReflectionUtil {
    * @param field
    * @return the class of the field
    */
-  protected static Class<?> getFieldGenricType(final Field field) {
-    int index = 0; // TODO: esse index deve ser sempre zero?
+  public static Class<?> getFieldGenricType(final Field field) {
+    int index = 0; // TODO: always zero?
     Assert.notNull(field, "Parameter 'field' must be not null!");
     Assert.state(index > -1, "Parameter 'index' must be > -1!");
     Type type = field.getGenericType();
@@ -71,4 +72,13 @@ public final class ReflectionUtil {
     }
   }
 
+  /**
+   * Checks if the object is instance of {@link Collection}.
+   *
+   * @param object to check
+   * @return true if Collection
+   */
+  public static boolean isCollection(final Object object) {
+    return object instanceof Collection<?>;
+  }
 }

@@ -1,5 +1,6 @@
-package com.vidolima.ditiow.util;
+package com.vidolima.ditiow.aspect.util;
 
+import com.vidolima.ditiow.assembler.Assembler;
 import com.vidolima.ditiow.assembler.ResourceAssembler;
 import org.springframework.http.ResponseEntity;
 
@@ -18,7 +19,8 @@ public final class ResponseEntityUtil {
    * @return ResponseEntity
    */
   public static ResponseEntity<?> convertBody(final ResponseEntity<?> response, final Class<?> classOfBody) {
-    Object copied = ResourceAssembler.copy(response.getBody(), classOfBody);
+    Assembler assembler = new ResourceAssembler();
+    Object copied = assembler.assembly(response.getBody(), classOfBody);
     return new ResponseEntity(copied, response.getHeaders(), response.getStatusCode());
   }
 
