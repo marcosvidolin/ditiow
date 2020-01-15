@@ -1,7 +1,7 @@
 package com.vidolima.ditiow.aspect;
 
 import com.vidolima.ditiow.annotation.ResponseResource;
-import com.vidolima.ditiow.util.ResponseEntityUtil;
+import com.vidolima.ditiow.aspect.util.ResponseEntityUtil;
 import java.lang.reflect.Method;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
  * @since Dez 23, 2019
  */
 @Aspect
-public class DitiowAspect {
+public final class DitiowAspect {
 
   /**
    * Convert the return of the method into a resource instance of the annotation value.

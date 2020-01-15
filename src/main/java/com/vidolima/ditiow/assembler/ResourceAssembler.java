@@ -1,7 +1,8 @@
-package com.vidolima.ditiow.util;
+package com.vidolima.ditiow.assembler;
 
 import com.vidolima.ditiow.exception.IllegalCopyException;
 import com.vidolima.ditiow.resource.AbstractResource;
+import com.vidolima.ditiow.assembler.util.ReflectionUtil;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
