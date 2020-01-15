@@ -119,7 +119,7 @@ public class PostCreateResource extends AbstractResource<Post> {
   @PostMapping(path = "/posts")
   @ResponseResource(PostGetResource.class)
   public ResponseEntity<?> create(@Valid @RequestBody PostCreateResource resource) {
-    Post post = resource.toDomain();
+    Post post = resource.toDomain(); // converts the resource to domain
     post.setAuthor(this.currentUserUtil.getUser());
     return ResponseEntity.ok(this.postService.create(post));
   }
