@@ -49,9 +49,7 @@ public class Post {
   private String content;
   private Date publishedAt;
   private Collection<Comment> comments;
-  
   // ...
-  
 }
 ```
 
