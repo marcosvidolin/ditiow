@@ -12,7 +12,7 @@ import java.lang.reflect.ParameterizedType;
  * @since Dez 23, 2019
  * @param <B>
  */
-public abstract class AbstractResource<B> {
+public abstract class AbstractResource<B> implements Resource {
 
   private Class<B> domainClass;
 
