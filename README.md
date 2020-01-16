@@ -38,35 +38,16 @@ Ditiow is an aspect library designed to help you safely expose features of your 
 
 ## How to use
 
-JPA/Entity class with all fields. **Nothing needs to be done at this point**.
+Domain class with all fields. **Nothing needs to be done at this point**.
 
 ```java
-@Entity
-@Table(name = "post")
 public class Post {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "POST_CD_POST", unique = true)
   private Long code;
-
-  @Type(type="org.hibernate.type.UUIDCharType")
-  @Column(name = "POST_CD_UUID", unique = true, updatable = false)
   private UUID uuid;
-
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(unique = true, updatable = false)
   private User author;
-
-  @Column(name = "POST_TX_CONTENT")
   private String content;
-
-  @CreationTimestamp
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "POST_DT_CREATE", updatable = false)
   private Date publishedAt;
-
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private Collection<Comment> comments;
   
   // ...
