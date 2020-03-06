@@ -108,7 +108,7 @@ public class PostCreateResource extends AbstractResource<Post> {
 
 ## TODO
 
-- Create an annotation to specify the attribute name of the resource (without having to match the name of the domain class);
+- Improvement to convert Maps;
 - Unit tests; 
 
 ## Contributors
