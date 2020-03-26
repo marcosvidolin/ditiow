@@ -3,6 +3,7 @@ package com.vidolima.ditiow.assembler;
 import com.vidolima.ditiow.assembler.util.ReflectionUtil;
 import com.vidolima.ditiow.exception.IllegalCopyException;
 import com.vidolima.ditiow.resource.AbstractResource;
+
 import java.lang.reflect.Field;
 
 /**
@@ -11,7 +12,7 @@ import java.lang.reflect.Field;
  * @author Marcos A. Vidolin de Lima
  * @since Dez 23, 2019
  */
-public final class ResourceAssembler extends AbstractAsselbler {
+public final class ResourceAssembler extends AbstractAssembler {
 
   /**
    * Return a new object (instance of "T") with all values copied from the the given object.
@@ -23,11 +24,15 @@ public final class ResourceAssembler extends AbstractAsselbler {
    */
   public <T> T assembly(final Object object, final Class<T> classOfTargetObject) {
 
+    if (object == null || classOfTargetObject == null) {
+      return null;
+    }
+
     T copy = createCopy(object, classOfTargetObject);
 
     Field[] fields = copy.getClass().getDeclaredFields();
     for (Field field : fields) {
-      Class<?> fieldGenericType = ReflectionUtil.getFieldGenricType(field);
+      Class<?> fieldGenericType = ReflectionUtil.getFieldGenericType(field);
       if (ReflectionUtil.isFieldTypeOf(field, AbstractResource.class)) {
         try {
           Object value = ReflectionUtil.getFieldValue(field.getName(), object);
@@ -41,5 +46,4 @@ public final class ResourceAssembler extends AbstractAsselbler {
     }
     return copy;
   }
-
 }

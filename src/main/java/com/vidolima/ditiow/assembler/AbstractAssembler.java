@@ -3,10 +3,12 @@ package com.vidolima.ditiow.assembler;
 import com.vidolima.ditiow.assembler.util.ReflectionUtil;
 import com.vidolima.ditiow.exception.IllegalCopyException;
 import com.vidolima.ditiow.resource.AbstractResource;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collection;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.FatalBeanException;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 
 /**
  * Provides all default methods for an {@link Assembler}.
@@ -14,7 +16,7 @@ import org.springframework.beans.BeanUtils;
  * @author Marcos A. Vidolin de Lima
  * @since Jan 14, 2020
  */
-public abstract class AbstractAsselbler implements Assembler {
+public abstract class AbstractAssembler implements Assembler {
 
   /**
    * Gets the resource's field by a given name.
@@ -53,13 +55,20 @@ public abstract class AbstractAsselbler implements Assembler {
     }
 
     try {
-      T targetObject = classOfTargetObject.newInstance();
+      T targetObject = classOfTargetObject.getDeclaredConstructor().newInstance();
       BeanUtils.copyProperties(obj, targetObject);
       return targetObject;
     } catch (InstantiationException | IllegalAccessException e) {
       throw new IllegalCopyException("Could not create new instance of the target class.", e);
+    } catch (NoSuchMethodException e) {
+      throw new IllegalCopyException("Could not create new instance of the target class.", e);
+    } catch (InvocationTargetException e) {
+      throw new IllegalCopyException("Could not create new instance of the target class.", e);
+    }catch (FatalBeanException e){
+      throw new IllegalCopyException("Could not create new instance of the target class.", e);
     }
   }
+
 
   /**
    * Return a new object (instance of "T") with all values copied from the the given object.
@@ -73,11 +82,15 @@ public abstract class AbstractAsselbler implements Assembler {
     if (objs == null) {
       return null;
     }
-    Collection<T> targetObject = new ArrayList<>();
+    Collection<T> targetObject = null;
+    try {
+      targetObject = (Collection<T>) classOfTargetObject.newInstance();
+    } catch (InstantiationException | IllegalAccessException e) {
+      throw new IllegalCopyException("Could not create new instance of the target class.", e);
+    }
     for (Object obj : objs) {
       targetObject.add(this.assembly(obj, classOfTargetObject));
     }
     return targetObject;
   }
-
 }

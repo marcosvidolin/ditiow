@@ -3,6 +3,7 @@ package com.vidolima.ditiow.assembler;
 import com.vidolima.ditiow.assembler.util.ReflectionUtil;
 import com.vidolima.ditiow.exception.IllegalCopyException;
 import com.vidolima.ditiow.resource.AbstractResource;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +14,7 @@ import java.util.Collection;
  * @author Marcos A. Vidolin de Lima
  * @since Jan 13, 2020
  */
-public final class DomainAssembler extends AbstractAsselbler {
+public final class DomainAssembler extends AbstractAssembler {
 
   /**
    * Return a new object (instance of "T") with all values copied from the the given object.
@@ -25,6 +26,10 @@ public final class DomainAssembler extends AbstractAsselbler {
    */
   @Override
   public <T> T assembly(final Object object, final Class<T> classOfTargetObject) {
+
+    if (object == null || classOfTargetObject == null) {
+      return null;
+    }
 
     T targetObject = createCopy(object, classOfTargetObject);
 
@@ -59,5 +64,4 @@ public final class DomainAssembler extends AbstractAsselbler {
     }
     return targetObject;
   }
-
 }
