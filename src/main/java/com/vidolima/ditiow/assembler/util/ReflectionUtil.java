@@ -1,10 +1,11 @@
 package com.vidolima.ditiow.assembler.util;
 
+import org.springframework.util.Assert;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
-import org.springframework.util.Assert;
 
 /**
  * Utility class for reflection.
@@ -38,7 +39,8 @@ public final class ReflectionUtil {
    * @return true if is assignable
    */
   public static boolean isFieldTypeOf(final Field field, final Class<?> clazz) {
-    Class<?> type = ReflectionUtil.getFieldGenricType(field);
+    Class<?> type = ReflectionUtil.getFieldGenericType(field);
+
     if (type.isPrimitive()) {
       return false;
     }
@@ -54,20 +56,20 @@ public final class ReflectionUtil {
    * @param field
    * @return the class of the field
    */
-  public static Class<?> getFieldGenricType(final Field field) {
+  public static Class<?> getFieldGenericType(final Field field) {
     int index = 0; // TODO: always zero?
     Assert.notNull(field, "Parameter 'field' must be not null!");
     Assert.state(index > -1, "Parameter 'index' must be > -1!");
     Type type = field.getGenericType();
-    if(type instanceof ParameterizedType) {
+    if (type instanceof ParameterizedType) {
       ParameterizedType ptype = (ParameterizedType) type;
       type = ptype.getActualTypeArguments()[index];
-      if(type instanceof ParameterizedType) {
+      if (type instanceof ParameterizedType) {
         return (Class<?>) ((ParameterizedType) type).getRawType();
-      }else {
+      } else {
         return (Class<?>) type;
       }
-    }else {
+    } else {
       return (Class<?>) type;
     }
   }
