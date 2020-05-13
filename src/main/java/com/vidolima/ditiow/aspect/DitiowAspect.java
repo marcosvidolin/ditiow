@@ -26,7 +26,6 @@ public final class DitiowAspect {
    * @return Object after conversion
    * @throws Throwable
    */
-  // TODO: ver a melhor annotation para usar (Around)?
   @Around("com.vidolima.ditiow.aspect.CommonJoinPointConfig.responseResourceExecution()")
   public Object proceedResponseResource(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     ResponseEntity<?> response = (ResponseEntity<?>) proceedingJoinPoint.proceed();
