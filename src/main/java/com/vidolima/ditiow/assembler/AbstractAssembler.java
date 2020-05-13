@@ -58,13 +58,8 @@ public abstract class AbstractAssembler implements Assembler {
       T targetObject = classOfTargetObject.getDeclaredConstructor().newInstance();
       BeanUtils.copyProperties(obj, targetObject);
       return targetObject;
-    } catch (InstantiationException | IllegalAccessException e) {
-      throw new IllegalCopyException("Could not create new instance of the target class.", e);
-    } catch (NoSuchMethodException e) {
-      throw new IllegalCopyException("Could not create new instance of the target class.", e);
-    } catch (InvocationTargetException e) {
-      throw new IllegalCopyException("Could not create new instance of the target class.", e);
-    }catch (FatalBeanException e){
+    } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
+            | InvocationTargetException | FatalBeanException e) {
       throw new IllegalCopyException("Could not create new instance of the target class.", e);
     }
   }
