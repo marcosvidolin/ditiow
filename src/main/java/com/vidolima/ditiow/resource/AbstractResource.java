@@ -2,6 +2,7 @@ package com.vidolima.ditiow.resource;
 
 import com.vidolima.ditiow.assembler.Assembler;
 import com.vidolima.ditiow.assembler.DomainAssembler;
+
 import java.lang.reflect.ParameterizedType;
 
 /**

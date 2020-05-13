@@ -2,12 +2,13 @@ package com.vidolima.ditiow.aspect;
 
 import com.vidolima.ditiow.annotation.ResponseResource;
 import com.vidolima.ditiow.aspect.util.ResponseEntityUtil;
-import java.lang.reflect.Method;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.http.ResponseEntity;
+
+import java.lang.reflect.Method;
 
 /**
  * An aspect class to intercept rest controllers methods and convert objects (POJOs)
