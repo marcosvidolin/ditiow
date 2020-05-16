@@ -71,7 +71,7 @@ Note that the name of the attributes are the same as Post.
     }
     ```
 
-- Enable conversion by adding @ResourseResponse annotation on controller class with the "PostGetResource" as the value of the annotation.
+- Enable conversion by adding @ResponseResource annotation on controller class with the "PostGetResource" as the value of the annotation.
 
     ```java
       @GetMapping(path = "/posts/{uuid}")
@@ -82,7 +82,7 @@ Note that the name of the attributes are the same as Post.
       }
     ```
 
-     Here the magic happens. The response will be converted to a PostGetResourse object that is inserted into the body of the ResponseEntity object. 
+     Here the magic happens. The response will be converted to a PostGetResource object that is inserted into the body of the ResponseEntity object. 
 
 ### Retrieving a resource as a parameter
 
