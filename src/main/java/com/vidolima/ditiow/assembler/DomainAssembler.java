@@ -7,6 +7,7 @@ import com.vidolima.ditiow.resource.AbstractResource;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * An assembler class to converts an {@link AbstractResource} into a domain.
@@ -33,8 +34,6 @@ public final class DomainAssembler extends AbstractAssembler {
 
     T targetObject = createCopy(object, classOfTargetObject);
 
-    // TODO: refactor
-
     Field[] targetObjectFields = targetObject.getClass().getDeclaredFields();
     for (Field targetObjectField : targetObjectFields) {
       Field resourceField = getResourceFieldByName(targetObjectField.getName(), object);
@@ -43,18 +42,11 @@ public final class DomainAssembler extends AbstractAssembler {
           Object obj = ReflectionUtil.getFieldValue(resourceField.getName(), object);
           if (obj != null) {
             if (ReflectionUtil.isCollection(obj)) {
-              Collection<?> resources = (Collection<?>) obj;
-              Collection<Object> domains = new ArrayList<>();
-              for (int i = 0; i < resources.size(); i++) {
-                Object o = ((AbstractResource) resources.toArray()[i]).toDomain();
-                domains.add(o);
-              }
-              targetObjectField.setAccessible(true);
-              targetObjectField.set(targetObject, domains);
+              this.assemblyCollection(targetObject, targetObjectField, (Collection<?>) obj);
+            } else if (ReflectionUtil.isMap(obj)) {
+              this.assemblyMap(targetObject, targetObjectField, (Map<?, ?>) obj);
             } else {
-              Object value = ((AbstractResource) obj).toDomain();
-              targetObjectField.setAccessible(true);
-              targetObjectField.set(targetObject, value);
+              this.assemblyResource(targetObject, targetObjectField, (AbstractResource<?>) obj);
             }
           }
         } catch (IllegalAccessException | NoSuchFieldException e) {
@@ -64,4 +56,55 @@ public final class DomainAssembler extends AbstractAssembler {
     }
     return targetObject;
   }
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param targetObject
+   * @param targetObjectField
+   * @param obj
+   * @param <T> return type
+   * @throws IllegalAccessException
+   */
+  private <T> void assemblyResource(T targetObject, Field targetObjectField, AbstractResource obj)
+          throws IllegalAccessException {
+    Object value = obj.toDomain();
+    targetObjectField.setAccessible(true);
+    targetObjectField.set(targetObject, value);
+  }
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param targetObject
+   * @param targetObjectField
+   * @param obj
+   * @param <T> return type
+   * @throws IllegalAccessException
+   */
+  private <T> void assemblyCollection(T targetObject, Field targetObjectField, Collection<?> obj)
+          throws IllegalAccessException {
+    Collection<?> resources = obj;
+    Collection<Object> domains = new ArrayList<>();
+    for (int i = 0; i < resources.size(); i++) {
+      Object o = ((AbstractResource<?>) resources.toArray()[i]).toDomain();
+      domains.add(o);
+    }
+    targetObjectField.setAccessible(true);
+    targetObjectField.set(targetObject, domains);
+  }
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param targetObject
+   * @param targetObjectField
+   * @param obj
+   * @param <T> return type
+   * @throws IllegalAccessException
+   */
+  private <T> void assemblyMap(T targetObject, Field targetObjectField, Map<?, ?> obj)
+          throws IllegalAccessException {
+  }
+
 }
