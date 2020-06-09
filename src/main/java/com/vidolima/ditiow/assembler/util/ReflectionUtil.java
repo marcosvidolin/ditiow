@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Utility class for reflection.
@@ -53,13 +54,13 @@ public final class ReflectionUtil {
   /**
    * Gets the generic type (class) of a Field.
    *
-   * @param field
+   * @param field the field of the object
    * @return the class of the field
    */
   public static Class<?> getFieldGenericType(final Field field) {
-    int index = 0; // TODO: always zero?
+    int index = 0; // TODO: When Map must consider Map<?, ?> the first and second index to get the type
     Assert.notNull(field, "Parameter 'field' must be not null!");
-    Assert.state(index > -1, "Parameter 'index' must be > -1!");
+    Assert.state(index > -1, "Parameter 'index' must be > -1!"); // TODO: maybe informe the index by parameter
     Type type = field.getGenericType();
     if (type instanceof ParameterizedType) {
       ParameterizedType ptype = (ParameterizedType) type;
@@ -75,12 +76,23 @@ public final class ReflectionUtil {
   }
 
   /**
-   * Checks if the object is instance of {@link Collection}.
+   * Checks if the object is a {@link Collection} object.
    *
    * @param object to check
    * @return true if Collection
    */
   public static boolean isCollection(final Object object) {
-    return object instanceof Collection<?>;
+    return object instanceof Collection;
   }
+
+  /**
+   * Checks if the object is a {@link Map} object.
+   *
+   * @param object to check
+   * @return true if Map
+   */
+  public static boolean isMap(final Object object) {
+    return object instanceof Map;
+  }
+
 }
