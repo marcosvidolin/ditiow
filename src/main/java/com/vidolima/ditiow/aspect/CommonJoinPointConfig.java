@@ -14,6 +14,7 @@ public class CommonJoinPointConfig {
    * Pointcut declaration to get all public methods with {@link com.vidolima.ditiow.annotation.ResponseResource}
    * annotation.
    */
+  @SuppressWarnings("PMD.UncommentedEmptyMethodBody")
   @Pointcut("execution(public * *(..)) && @annotation(com.vidolima.ditiow.annotation.ResponseResource)")
   public void responseResourceExecution() {}
 

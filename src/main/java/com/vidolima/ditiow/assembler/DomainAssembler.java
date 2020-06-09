@@ -103,6 +103,7 @@ public final class DomainAssembler extends AbstractAssembler {
    * @param <T> return type
    * @throws IllegalAccessException
    */
+  @SuppressWarnings("PMD.UncommentedEmptyMethodBody")
   private <T> void assemblyMap(T targetObject, Field targetObjectField, Map<?, ?> obj)
           throws IllegalAccessException {
   }
