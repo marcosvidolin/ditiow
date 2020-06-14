@@ -62,6 +62,9 @@ public final class ReflectionUtil {
     Assert.notNull(field, "Parameter 'field' must be not null!");
     Assert.state(index > -1, "Parameter 'index' must be > -1!"); // TODO: maybe informe the index by parameter
     Type type = field.getGenericType();
+    if (Map.class.isAssignableFrom(field.getType())) {
+      index = 1;
+    }
     if (type instanceof ParameterizedType) {
       ParameterizedType ptype = (ParameterizedType) type;
       type = ptype.getActualTypeArguments()[index];

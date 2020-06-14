@@ -2,6 +2,7 @@ package com.vidolima.ditiow.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class User implements Serializable {
 
@@ -18,6 +19,7 @@ public class User implements Serializable {
   private Boolean gender;
   private Address address;
   private List<Point> points;
+  private Map<String, Address> addressByState;
 
   public Long getId() {
     return id;
@@ -113,5 +115,13 @@ public class User implements Serializable {
 
   public void setPoints(List<Point> points) {
     this.points = points;
+  }
+
+  public Map<String, Address> getAddressByState() {
+    return addressByState;
+  }
+
+  public void setAddressByState(Map<String, Address> addressByState) {
+    this.addressByState = addressByState;
   }
 }

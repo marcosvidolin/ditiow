@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
@@ -44,6 +45,12 @@ public class DomainAssemblerTest extends BaseTest {
     collector.checkThat(actualAddress.getStreetName(), equalTo(STREET_NAME));
     collector.checkThat(actualAddress.getMap().size(), equalTo(1));
     collector.checkThat(actualAddress.getMap().get(ONE_STRING), equalTo(ONE_INTEGER));
+    Map<String, Address> addressByState = actual.getAddressByState();
+    Address hawaiiAddress = addressByState.get(STATE_CODE);
+    collector.checkThat(hawaiiAddress.getCountry(), equalTo(COUNTRY));
+    collector.checkThat(hawaiiAddress.getStreetName(), equalTo(STREET_NAME));
+    collector.checkThat(hawaiiAddress.getMap().size(), equalTo(1));
+    collector.checkThat(hawaiiAddress.getMap().get(ONE_STRING), equalTo(ONE_INTEGER));
   }
 
   @Test

@@ -32,6 +32,7 @@ public abstract class BaseTest {
   protected static final Boolean MALE = Boolean.TRUE;
   protected static final Double SALARY = Double.valueOf(4000);
   protected static final Double POINT_VALUE = Double.valueOf(5);
+  protected static final String STATE_CODE = "HI";
 
   @Rule public ErrorCollector collector = new ErrorCollector();
 
@@ -93,6 +94,9 @@ public abstract class BaseTest {
     List<PointResource> points = new ArrayList<>();
     points.add(createPointResource());
     createResource.setPoints(points);
+    Map<String, AddressResource> addressByState = new HashMap<>();
+    addressByState.put(STATE_CODE, createAddressResource());
+    createResource.setAddressByState(addressByState);
     return createResource;
   }
 
