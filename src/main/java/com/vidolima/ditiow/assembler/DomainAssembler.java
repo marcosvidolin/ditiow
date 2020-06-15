@@ -7,6 +7,7 @@ import com.vidolima.ditiow.resource.AbstractResource;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -103,9 +104,16 @@ public final class DomainAssembler extends AbstractAssembler {
    * @param <T> return type
    * @throws IllegalAccessException
    */
-  @SuppressWarnings("PMD.UncommentedEmptyMethodBody")
   private <T> void assemblyMap(T targetObject, Field targetObjectField, Map<?, ?> obj)
           throws IllegalAccessException {
+    Map<?, ?> resourcesMap = obj;
+    Map<Object, Object> domainsMap = new HashMap<>();
+    resourcesMap.forEach((key, resource) -> {
+      Object domainObject = ((AbstractResource<?>)resource).toDomain();
+      domainsMap.put(key, domainObject);
+    });
+    targetObjectField.setAccessible(true);
+    targetObjectField.set(targetObject, domainsMap);
   }
 
 }

@@ -4,6 +4,7 @@ import com.vidolima.ditiow.entity.User;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class UserCreateResource extends AbstractResource<User> implements Serializable {
 
@@ -19,6 +20,7 @@ public class UserCreateResource extends AbstractResource<User> implements Serial
   private String password;
   private AddressResource address;
   private List<PointResource> points;
+  private Map<String, AddressResource> addressByState;
 
   public Long getId() {
     return id;
@@ -106,5 +108,13 @@ public class UserCreateResource extends AbstractResource<User> implements Serial
 
   public void setPoints(List<PointResource> points) {
     this.points = points;
+  }
+
+  public Map<String, AddressResource> getAddressByState() {
+    return addressByState;
+  }
+
+  public void setAddressByState(Map<String, AddressResource> addressByState) {
+    this.addressByState = addressByState;
   }
 }
