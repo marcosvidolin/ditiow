@@ -106,11 +106,6 @@ public class PostCreateResource extends AbstractResource<Post> {
   }
 ```
 
-## TODO
-
-- Improvement to convert Maps;
-- Unit tests; 
-
 ## Contributors
 
 [![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/0)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/0)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/1)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/1)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/2)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/2)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/3)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/3)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/4)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/4)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/5)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/5)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/6)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/6)[![](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/images/7)](https://sourcerer.io/fame/marcosvidolin/marcosvidolin/ditiow/links/7)
