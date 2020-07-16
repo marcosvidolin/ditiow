@@ -1,8 +1,9 @@
 package com.vidolima.ditiow.aspect.util;
 
+import org.springframework.http.ResponseEntity;
+
 import com.vidolima.ditiow.assembler.Assembler;
 import com.vidolima.ditiow.assembler.ResourceAssembler;
-import org.springframework.http.ResponseEntity;
 
 /**
  * Utility class used to prepare the HTTP Response.

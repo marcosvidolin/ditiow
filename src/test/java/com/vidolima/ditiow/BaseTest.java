@@ -61,22 +61,6 @@ public abstract class BaseTest {
     return pointResource;
   }
 
-  protected UserGetResource createUserGetResource() {
-    UserGetResource getResource = new UserGetResource();
-    getResource.setFirstName(FIRST_NAME);
-    getResource.setLastName(LAST_NAME);
-    getResource.setEmail(EMAIL);
-    getResource.setUsername(USERNAME);
-    getResource.setSalary(SALARY);
-    List<String> comments = new ArrayList<>();
-    comments.add(COMMENT_1);
-    comments.add(COMMENT_2);
-    getResource.setComments(comments);
-    getResource.setGender(MALE);
-    getResource.setAddress(createAddressResource());
-    return getResource;
-  }
-
   protected UserCreateResource createUserCreateResource() {
     UserCreateResource createResource = new UserCreateResource();
     createResource.setFirstName(FIRST_NAME);
