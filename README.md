@@ -13,7 +13,7 @@ Ditiow is an aspect library designed to help you safely expose features of your 
     - Gradle
     
     ```groovy
-    compile 'com.vidolima:ditiow:0.2.2'
+    compile 'com.vidolima:ditiow:1.0.0'
     ```
    
    - Maven
@@ -22,7 +22,7 @@ Ditiow is an aspect library designed to help you safely expose features of your 
    <dependency>
    	<groupId>com.vidolima</groupId>
    	<artifactId>ditiow</artifactId>
-   	<version>0.2.2</version>
+   	<version>1.0.0</version>
    	<type>pom</type>
    </dependency>
    ```
