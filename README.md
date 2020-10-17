@@ -30,9 +30,14 @@ Ditiow is an aspect library designed to help you safely expose features of your 
 3. Declare DitiowAspect as a bean. Add aspect bean in one of the @Configuration classes
 
     ```java
-    @Bean
-    public DitiowAspect ditiow() {
-        return new DitiowAspect();
+    @Configuration
+    public class DitiowConfig {
+    
+        @Bean
+        public DitiowAspect ditiow() {
+            return new DitiowAspect();
+        }
+
     }
     ```
 
