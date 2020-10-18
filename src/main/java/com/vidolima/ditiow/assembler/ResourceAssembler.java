@@ -22,7 +22,21 @@ public final class ResourceAssembler extends AbstractAssembler {
    * @param <T> return type
    * @return T
    */
+  @Override
   public <T> T assembly(final Object object, final Class<T> classOfTargetObject) {
+    return this.assembly(object, classOfTargetObject, null);
+  }
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param object object to be copied
+   * @param classOfTargetObject the class of the target object
+   * @param <T> return type
+   * @return T
+   */
+  @Override
+  public <T> T assembly(final Object object, final Class<T> classOfTargetObject, final String[] excludedFields) {
 
     if (object == null || classOfTargetObject == null) {
       return null;
@@ -32,6 +46,8 @@ public final class ResourceAssembler extends AbstractAssembler {
 
     Field[] fields = copy.getClass().getDeclaredFields();
     for (Field field : fields) {
+      // TODO: excluir os campos aqui
+//      field.getName()
       Class<?> fieldGenericType = ReflectionUtil.getFieldGenericType(field);
       if (ReflectionUtil.isFieldTypeOf(field, AbstractResource.class)) {
         try {
@@ -44,6 +60,8 @@ public final class ResourceAssembler extends AbstractAssembler {
         }
       }
     }
+
     return copy;
   }
+
 }

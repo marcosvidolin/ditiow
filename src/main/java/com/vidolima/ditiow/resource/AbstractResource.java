@@ -33,7 +33,7 @@ public abstract class AbstractResource<B> implements Resource {
    */
   public <B> B toDomain() {
     Assembler assembler = new DomainAssembler();
-    return (B) assembler.assembly(this, domainClass);
+    return (B) assembler.assembly(this, domainClass, null);
   }
 
 }

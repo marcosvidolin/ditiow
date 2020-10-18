@@ -20,4 +20,10 @@ public @interface ResponseResource {
    */
   Class<?> value();
 
+  /**
+   * Fields to be ignored in the response at runtime.
+   * @return array of fields to be ignored
+   */
+  String[] excludeFields() default {};
+
 }

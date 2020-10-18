@@ -28,6 +28,21 @@ public final class DomainAssembler extends AbstractAssembler {
    */
   @Override
   public <T> T assembly(final Object object, final Class<T> classOfTargetObject) {
+    return this.assembly(object, classOfTargetObject, null);
+  }
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param object object to be copied
+   * @param classOfTargetObject the class of the target object
+   * @param <T> return type
+   * @param excludedFields array of fields to be ignored
+   * @return T
+   */
+  @Override
+  public <T> T assembly(final Object object, final Class<T> classOfTargetObject
+          , final String[] excludedFields) {
 
     if (object == null || classOfTargetObject == null) {
       return null;

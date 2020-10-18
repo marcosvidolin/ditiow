@@ -30,22 +30,43 @@ public final class DitiowAspect {
   @Around("com.vidolima.ditiow.aspect.CommonJoinPointConfig.responseResourceExecution()")
   public Object proceedResponseResource(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     ResponseEntity<?> response = (ResponseEntity<?>) proceedingJoinPoint.proceed();
-    Class<?> classOfResponse = this.getAnnotationValue(proceedingJoinPoint, ResponseResource.class);
-    return ResponseEntityUtil.convertBody(response, classOfResponse);
+    ResponseResource annotation = this.getAnnotation(proceedingJoinPoint, ResponseResource.class);
+    Class<?> classOfResponse = this.getAnnotationValue(annotation);
+    String[] excludedFields = this.getAnnotationExcludeFields(annotation);
+    return ResponseEntityUtil.convertBody(response, classOfResponse, excludedFields);
   }
 
   /**
-   * Gets the annotation value from the joinPoint.
+   * Gets the annotation from the joinPoint.
    *
    * @param joinPoint {@link ProceedingJoinPoint}
    * @param classOfAnnotation the class of the annotation
-   * @return the annotation value
+   * @return the annotation
    */
-  private Class<?> getAnnotationValue(final ProceedingJoinPoint joinPoint, final Class classOfAnnotation) {
+  private ResponseResource getAnnotation(final ProceedingJoinPoint joinPoint, final Class classOfAnnotation) {
     MethodSignature signature = (MethodSignature) joinPoint.getSignature();
     Method method = signature.getMethod();
-    ResponseResource annotation = (ResponseResource) method.getAnnotation(classOfAnnotation);
+    return (ResponseResource) method.getAnnotation(classOfAnnotation);
+  }
+
+  /**
+   * Gets the value from the annotation.
+   *
+   * @param annotation ResponseResource
+   * @return the annotation value
+   */
+  private Class<?> getAnnotationValue(final ResponseResource annotation) {
     return annotation.value();
+  }
+
+  /**
+   * Gets the exclude fields value from the annotation.
+   *
+   * @param annotation ResponseResource
+   * @return the annotation exclude field value
+   */
+  private String[] getAnnotationExcludeFields(final ResponseResource annotation) {
+    return annotation.excludeFields();
   }
 
 }
