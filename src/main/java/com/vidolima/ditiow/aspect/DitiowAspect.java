@@ -23,9 +23,9 @@ public final class DitiowAspect {
   /**
    * Convert the return of the method into a resource instance of the annotation value.
    *
-   * @param proceedingJoinPoint
+   * @param proceedingJoinPoint the join point of the aspect
    * @return Object after conversion
-   * @throws Throwable
+   * @throws Throwable generic error
    */
   @Around("com.vidolima.ditiow.aspect.CommonJoinPointConfig.responseResourceExecution()")
   public Object proceedResponseResource(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {

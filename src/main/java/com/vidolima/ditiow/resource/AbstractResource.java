@@ -11,7 +11,7 @@ import java.lang.reflect.ParameterizedType;
  *
  * @author Marcos A. Vidolin de Lima
  * @since Dez 23, 2019
- * @param <B>
+ * @param <B> the type of the model class
  */
 public abstract class AbstractResource<B> implements Resource {
 

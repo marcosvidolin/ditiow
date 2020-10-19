@@ -1,20 +1,19 @@
 package com.vidolima.ditiow.assembler;
 
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.lang.reflect.Method;
-
+import com.vidolima.ditiow.BaseTest;
+import com.vidolima.ditiow.aspect.DitiowAspect;
+import com.vidolima.ditiow.entity.Person;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.vidolima.ditiow.BaseTest;
-import com.vidolima.ditiow.aspect.DitiowAspect;
-import com.vidolima.ditiow.entity.Person;
+import java.lang.reflect.Method;
+
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class DitiowAspectTest extends BaseTest {
 	@Test

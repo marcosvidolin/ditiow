@@ -1,9 +1,8 @@
 package com.vidolima.ditiow.aspect.util;
 
-import org.springframework.http.ResponseEntity;
-
 import com.vidolima.ditiow.assembler.Assembler;
 import com.vidolima.ditiow.assembler.ResourceAssembler;
+import org.springframework.http.ResponseEntity;
 
 /**
  * Utility class used to prepare the HTTP Response.
@@ -30,6 +29,7 @@ public final class ResponseEntityUtil {
    *
    * @param response {@link ResponseEntity}
    * @param classOfBody the class of the new instance of the response body
+   * @param excludedFields fields to be ignored
    * @return ResponseEntity
    */
   public static ResponseEntity<?> convertBody(final ResponseEntity<?> response, final Class<?> classOfBody
