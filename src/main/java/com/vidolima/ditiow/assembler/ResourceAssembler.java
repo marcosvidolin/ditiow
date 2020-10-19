@@ -5,6 +5,7 @@ import com.vidolima.ditiow.exception.IllegalCopyException;
 import com.vidolima.ditiow.resource.AbstractResource;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 /**
  * An assembler class to converts a domain into an {@link AbstractResource}.
@@ -36,7 +37,8 @@ public final class ResourceAssembler extends AbstractAssembler {
    * @return T
    */
   @Override
-  public <T> T assembly(final Object object, final Class<T> classOfTargetObject, final String[] excludedFields) {
+  public <T> T assembly(final Object object, final Class<T> classOfTargetObject
+          , final String[] excludedFields) {
 
     if (object == null || classOfTargetObject == null) {
       return null;
@@ -46,8 +48,11 @@ public final class ResourceAssembler extends AbstractAssembler {
 
     Field[] fields = copy.getClass().getDeclaredFields();
     for (Field field : fields) {
-      // TODO: excluir os campos aqui
-//      field.getName()
+
+      if (isIgnoredField(field, excludedFields)) {
+        break;
+      }
+
       Class<?> fieldGenericType = ReflectionUtil.getFieldGenericType(field);
       if (ReflectionUtil.isFieldTypeOf(field, AbstractResource.class)) {
         try {
@@ -62,6 +67,17 @@ public final class ResourceAssembler extends AbstractAssembler {
     }
 
     return copy;
+  }
+
+  /**
+   * Checks if the field must be ignored.
+   * @param field
+   * @param excludedFields
+   * @return true if must be ignored
+   */
+  private boolean isIgnoredField(final Field field, final String[] excludedFields) {
+    return excludedFields != null
+            && Arrays.stream(excludedFields).anyMatch(f -> f.equals(field.getName()));
   }
 
 }
