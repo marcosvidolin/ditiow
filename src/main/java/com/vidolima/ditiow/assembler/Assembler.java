@@ -24,9 +24,9 @@ public interface Assembler {
    * @param object object to be copied
    * @param classOfTargetObject the class of the target object
    * @param <T> return type
-   * @param excludedFields array of fields to be ignored
+   * @param ignoreProperties array of fields to be ignored
    * @return T
    */
-  <T> T assembly(Object object, Class<T> classOfTargetObject, String[] excludedFields);
+  <T> T assembly(Object object, Class<T> classOfTargetObject, String[] ignoreProperties);
 
 }

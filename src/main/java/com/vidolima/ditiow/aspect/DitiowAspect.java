@@ -32,8 +32,8 @@ public final class DitiowAspect {
     ResponseEntity<?> response = (ResponseEntity<?>) proceedingJoinPoint.proceed();
     ResponseResource annotation = this.getAnnotation(proceedingJoinPoint, ResponseResource.class);
     Class<?> classOfResponse = this.getAnnotationValue(annotation);
-    String[] excludedFields = this.getAnnotationExcludeFields(annotation);
-    return ResponseEntityUtil.convertBody(response, classOfResponse, excludedFields);
+    String[] ignoredProperties = this.getAnnotationIgnoredProperties(annotation);
+    return ResponseEntityUtil.convertBody(response, classOfResponse, ignoredProperties);
   }
 
   /**
@@ -60,13 +60,13 @@ public final class DitiowAspect {
   }
 
   /**
-   * Gets the exclude fields value from the annotation.
+   * Gets the ignored fields value from the annotation.
    *
    * @param annotation ResponseResource
-   * @return the annotation exclude field value
+   * @return the annotation ignore field value
    */
-  private String[] getAnnotationExcludeFields(final ResponseResource annotation) {
-    return annotation.excludeFields();
+  private String[] getAnnotationIgnoredProperties(final ResponseResource annotation) {
+    return annotation.ignoreProperties();
   }
 
 }

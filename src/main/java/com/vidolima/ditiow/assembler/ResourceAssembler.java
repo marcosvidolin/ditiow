@@ -5,7 +5,6 @@ import com.vidolima.ditiow.exception.IllegalCopyException;
 import com.vidolima.ditiow.resource.AbstractResource;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 
 /**
  * An assembler class to converts a domain into an {@link AbstractResource}.
@@ -33,31 +32,27 @@ public final class ResourceAssembler extends AbstractAssembler {
    *
    * @param object object to be copied
    * @param classOfTargetObject the class of the target object
+   * @param ignoreProperties properties to be ignored
    * @param <T> return type
    * @return T
    */
   @Override
   public <T> T assembly(final Object object, final Class<T> classOfTargetObject
-          , final String[] excludedFields) {
+          , final String[] ignoreProperties) {
 
     if (object == null || classOfTargetObject == null) {
       return null;
     }
 
-    T copy = createCopy(object, classOfTargetObject);
+    T copy = createCopy(object, classOfTargetObject, ignoreProperties);
 
     Field[] fields = copy.getClass().getDeclaredFields();
     for (Field field : fields) {
-
-      if (isIgnoredField(field, excludedFields)) {
-        break;
-      }
-
       Class<?> fieldGenericType = ReflectionUtil.getFieldGenericType(field);
       if (ReflectionUtil.isFieldTypeOf(field, AbstractResource.class)) {
         try {
           Object value = ReflectionUtil.getFieldValue(field.getName(), object);
-          T innerCopy = (T) createCopy(value, fieldGenericType);
+          T innerCopy = (T) createCopy(value, fieldGenericType, ignoreProperties);
           field.setAccessible(true);
           field.set(copy, innerCopy);
         } catch (IllegalAccessException | NoSuchFieldException e) {
@@ -67,17 +62,6 @@ public final class ResourceAssembler extends AbstractAssembler {
     }
 
     return copy;
-  }
-
-  /**
-   * Checks if the field must be ignored.
-   * @param field
-   * @param excludedFields
-   * @return true if must be ignored
-   */
-  private boolean isIgnoredField(final Field field, final String[] excludedFields) {
-    return excludedFields != null
-            && Arrays.stream(excludedFields).anyMatch(f -> f.equals(field.getName()));
   }
 
 }

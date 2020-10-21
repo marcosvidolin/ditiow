@@ -89,6 +89,21 @@ Note that the name of the attributes are the same as Post.
 
      Here the magic happens. The response will be converted to a PostGetResource object that is inserted into the body of the ResponseEntity object. 
 
+### Ignore the properties of a Resource at response time
+
+- In this example the values of `author` and `publichedAt` fields will not be returned in the response
+
+    *Whenever a primitive field is ignored, its original value will be omitted and the corresponding default value will be returned.*
+
+```java
+  @GetMapping(path = "/posts/{uuid}")
+  @ResponseResource(PostGetResource.class, ignoreProperties = {"author", "publishedAt"})
+  public ResponseEntity<?> get(@PathVariable UUID uuid) {
+    Post post = this.postService.findPostByUuid(uuid);
+    return ResponseEntity.ok(post);
+  }
+```
+    
 ### Retrieving a resource as a parameter
 
 ```java
