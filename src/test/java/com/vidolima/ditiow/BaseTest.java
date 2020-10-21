@@ -5,7 +5,6 @@ import com.vidolima.ditiow.entity.User;
 import com.vidolima.ditiow.resource.AddressResource;
 import com.vidolima.ditiow.resource.PointResource;
 import com.vidolima.ditiow.resource.UserCreateResource;
-import com.vidolima.ditiow.resource.UserGetResource;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 

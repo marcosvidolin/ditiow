@@ -22,8 +22,8 @@ public final class ReflectionUtil {
    * @param fieldName field name reference
    * @param object object with the field and its value
    * @return the value of the given field
-   * @throws NoSuchFieldException
-   * @throws IllegalAccessException
+   * @throws NoSuchFieldException reflection error
+   * @throws IllegalAccessException reflection error
    */
   public static Object getFieldValue(final String fieldName, final Object object)
       throws NoSuchFieldException, IllegalAccessException {

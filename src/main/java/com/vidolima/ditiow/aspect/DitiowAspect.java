@@ -23,29 +23,50 @@ public final class DitiowAspect {
   /**
    * Convert the return of the method into a resource instance of the annotation value.
    *
-   * @param proceedingJoinPoint
+   * @param proceedingJoinPoint the join point of the aspect
    * @return Object after conversion
-   * @throws Throwable
+   * @throws Throwable generic error
    */
   @Around("com.vidolima.ditiow.aspect.CommonJoinPointConfig.responseResourceExecution()")
   public Object proceedResponseResource(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     ResponseEntity<?> response = (ResponseEntity<?>) proceedingJoinPoint.proceed();
-    Class<?> classOfResponse = this.getAnnotationValue(proceedingJoinPoint, ResponseResource.class);
-    return ResponseEntityUtil.convertBody(response, classOfResponse);
+    ResponseResource annotation = this.getAnnotation(proceedingJoinPoint, ResponseResource.class);
+    Class<?> classOfResponse = this.getAnnotationValue(annotation);
+    String[] ignoredProperties = this.getAnnotationIgnoredProperties(annotation);
+    return ResponseEntityUtil.convertBody(response, classOfResponse, ignoredProperties);
   }
 
   /**
-   * Gets the annotation value from the joinPoint.
+   * Gets the annotation from the joinPoint.
    *
    * @param joinPoint {@link ProceedingJoinPoint}
    * @param classOfAnnotation the class of the annotation
-   * @return the annotation value
+   * @return the annotation
    */
-  private Class<?> getAnnotationValue(final ProceedingJoinPoint joinPoint, final Class classOfAnnotation) {
+  private ResponseResource getAnnotation(final ProceedingJoinPoint joinPoint, final Class classOfAnnotation) {
     MethodSignature signature = (MethodSignature) joinPoint.getSignature();
     Method method = signature.getMethod();
-    ResponseResource annotation = (ResponseResource) method.getAnnotation(classOfAnnotation);
+    return (ResponseResource) method.getAnnotation(classOfAnnotation);
+  }
+
+  /**
+   * Gets the value from the annotation.
+   *
+   * @param annotation ResponseResource
+   * @return the annotation value
+   */
+  private Class<?> getAnnotationValue(final ResponseResource annotation) {
     return annotation.value();
+  }
+
+  /**
+   * Gets the ignored fields value from the annotation.
+   *
+   * @param annotation ResponseResource
+   * @return the annotation ignore field value
+   */
+  private String[] getAnnotationIgnoredProperties(final ResponseResource annotation) {
+    return annotation.ignoreProperties();
   }
 
 }

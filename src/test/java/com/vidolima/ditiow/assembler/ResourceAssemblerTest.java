@@ -1,20 +1,17 @@
 package com.vidolima.ditiow.assembler;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.vidolima.ditiow.BaseTest;
 import com.vidolima.ditiow.entity.ValueException;
 import com.vidolima.ditiow.exception.IllegalCopyException;
 import com.vidolima.ditiow.resource.AddressResource;
 import com.vidolima.ditiow.resource.UserGetResource;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.*;
 
 public class ResourceAssemblerTest extends BaseTest {
 

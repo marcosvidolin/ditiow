@@ -22,13 +22,29 @@ public final class ResourceAssembler extends AbstractAssembler {
    * @param <T> return type
    * @return T
    */
+  @Override
   public <T> T assembly(final Object object, final Class<T> classOfTargetObject) {
+    return this.assembly(object, classOfTargetObject, null);
+  }
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param object object to be copied
+   * @param classOfTargetObject the class of the target object
+   * @param ignoreProperties properties to be ignored
+   * @param <T> return type
+   * @return T
+   */
+  @Override
+  public <T> T assembly(final Object object, final Class<T> classOfTargetObject
+          , final String[] ignoreProperties) {
 
     if (object == null || classOfTargetObject == null) {
       return null;
     }
 
-    T copy = createCopy(object, classOfTargetObject);
+    T copy = createCopy(object, classOfTargetObject, ignoreProperties);
 
     Field[] fields = copy.getClass().getDeclaredFields();
     for (Field field : fields) {
@@ -36,7 +52,7 @@ public final class ResourceAssembler extends AbstractAssembler {
       if (ReflectionUtil.isFieldTypeOf(field, AbstractResource.class)) {
         try {
           Object value = ReflectionUtil.getFieldValue(field.getName(), object);
-          T innerCopy = (T) createCopy(value, fieldGenericType);
+          T innerCopy = (T) createCopy(value, fieldGenericType, ignoreProperties);
           field.setAccessible(true);
           field.set(copy, innerCopy);
         } catch (IllegalAccessException | NoSuchFieldException e) {
@@ -44,6 +60,8 @@ public final class ResourceAssembler extends AbstractAssembler {
         }
       }
     }
+
     return copy;
   }
+
 }

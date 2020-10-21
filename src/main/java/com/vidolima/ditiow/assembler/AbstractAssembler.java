@@ -42,10 +42,13 @@ public abstract class AbstractAssembler implements Assembler {
    *
    * @param obj object to be copied
    * @param classOfTargetObject the class of the target object
+   * @param ignoreProperties properties to be ignored
    * @param <T> return type
    * @return T
    */
-  protected <T> T createCopy(final Object obj, final Class<T> classOfTargetObject) {
+  protected <T> T createCopy(final Object obj, final Class<T> classOfTargetObject
+          , final String[] ignoreProperties) {
+
     if (obj == null) {
       return null;
     }
@@ -56,7 +59,7 @@ public abstract class AbstractAssembler implements Assembler {
 
     try {
       T targetObject = classOfTargetObject.getDeclaredConstructor().newInstance();
-      BeanUtils.copyProperties(obj, targetObject);
+      BeanUtils.copyProperties(obj, targetObject, ignoreProperties);
       return targetObject;
     } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
             | InvocationTargetException | FatalBeanException e) {
@@ -64,6 +67,18 @@ public abstract class AbstractAssembler implements Assembler {
     }
   }
 
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param obj object to be copied
+   * @param classOfTargetObject the class of the target object
+   * @param <T> return type
+   * @return T
+   */
+  protected <T> T createCopy(final Object obj, final Class<T> classOfTargetObject) {
+    return this.createCopy(obj, classOfTargetObject, null);
+  }
 
   /**
    * Return a new object (instance of "T") with all values copied from the the given object.
@@ -77,7 +92,7 @@ public abstract class AbstractAssembler implements Assembler {
     if (objs == null) {
       return null;
     }
-    Collection<T> targetObject = null;
+    Collection<T> targetObject;
     try {
       targetObject = (Collection<T>) classOfTargetObject.newInstance();
     } catch (InstantiationException | IllegalAccessException e) {

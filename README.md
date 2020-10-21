@@ -1,4 +1,4 @@
-![ditiow](logo.png)
+![ditiow](docs/assets/logo.png)
 
 [ ![Download](https://api.bintray.com/packages/marcosvidolin/maven/ditiow/images/download.svg?version=0.2.2) ](https://bintray.com/marcosvidolin/maven/ditiow/1.0.0/link) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5f79c15a8aa44706afcf49261c1a6ef1)](https://www.codacy.com/manual/marcosvidolin/ditiow?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marcosvidolin/ditiow&amp;utm_campaign=Badge_Grade) [![CircleCI](https://circleci.com/gh/marcosvidolin/ditiow/tree/master.svg?style=svg)](https://circleci.com/gh/marcosvidolin/ditiow/tree/master)
 
@@ -13,7 +13,7 @@ Ditiow is an aspect library designed to help you safely expose features of your 
     - Gradle
     
     ```groovy
-    compile 'com.vidolima:ditiow:1.0.0'
+    compile 'com.vidolima:ditiow:1.1.0'
     ```
    
    - Maven
@@ -22,7 +22,7 @@ Ditiow is an aspect library designed to help you safely expose features of your 
    <dependency>
    	<groupId>com.vidolima</groupId>
    	<artifactId>ditiow</artifactId>
-   	<version>1.0.0</version>
+   	<version>1.1.0</version>
    	<type>pom</type>
    </dependency>
    ```
@@ -89,6 +89,21 @@ Note that the name of the attributes are the same as Post.
 
      Here the magic happens. The response will be converted to a PostGetResource object that is inserted into the body of the ResponseEntity object. 
 
+### Ignore the properties of a Resource at response time
+
+- In this example the values of `author` and `publichedAt` fields will not be returned in the response
+
+    *Whenever a primitive field is ignored, its original value will be omitted and the corresponding default value will be returned.*
+
+```java
+  @GetMapping(path = "/posts/{uuid}")
+  @ResponseResource(PostGetResource.class, ignoreProperties = {"author", "publishedAt"})
+  public ResponseEntity<?> get(@PathVariable UUID uuid) {
+    Post post = this.postService.findPostByUuid(uuid);
+    return ResponseEntity.ok(post);
+  }
+```
+    
 ### Retrieving a resource as a parameter
 
 ```java

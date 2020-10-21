@@ -11,7 +11,7 @@ import java.lang.reflect.ParameterizedType;
  *
  * @author Marcos A. Vidolin de Lima
  * @since Dez 23, 2019
- * @param <B>
+ * @param <B> the type of the model class
  */
 public abstract class AbstractResource<B> implements Resource {
 
@@ -33,7 +33,7 @@ public abstract class AbstractResource<B> implements Resource {
    */
   public <B> B toDomain() {
     Assembler assembler = new DomainAssembler();
-    return (B) assembler.assembly(this, domainClass);
+    return (B) assembler.assembly(this, domainClass, null);
   }
 
 }
