@@ -8,6 +8,28 @@ Ditiow is an aspect library designed to help you safely expose features of your 
 
 1. Ditiow is release by publishing in to the JCenter. So add the "jcenter" in your dependency management.
 
+    - Gradle
+    
+    ```groovy      
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+    ```
+    
+    - Maven
+    
+    ```xml
+	<repositories>
+		<repository>
+			<id>jcenter</id>
+			<name>jcenter</name>
+			<url>https://jcenter.bintray.com</url>
+		</repository>
+    <repositories>
+    ```
+
 2. Declaring the dependency
 
     - Gradle
