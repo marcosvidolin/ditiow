@@ -12,7 +12,6 @@ Ditiow is an aspect library designed to help you safely expose features of your 
     
     ```groovy      
 	repositories {
-	    mavenCentral()
 	    jcenter()
 	}
     ```
@@ -26,7 +25,7 @@ Ditiow is an aspect library designed to help you safely expose features of your 
 			<name>jcenter</name>
 			<url>https://jcenter.bintray.com</url>
 		</repository>
-    	<repositories>
+	</repositories>
     ```
 
 2. Declaring the dependency
