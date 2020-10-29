@@ -2,7 +2,7 @@ buildscript {
     ext.projectName = 'ditiow'
     ext.projectGroup = 'com.vidolima'
     ext.projectArtifact = 'ditiow'
-    ext.projectVersion = '1.1.0'
+    ext.projectVersion = '1.2.0'
 
     repositories {
         mavenCentral()
