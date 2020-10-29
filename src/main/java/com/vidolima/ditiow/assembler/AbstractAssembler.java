@@ -8,6 +8,7 @@ import org.springframework.beans.FatalBeanException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -54,7 +55,7 @@ public abstract class AbstractAssembler implements Assembler {
     }
 
     if (obj instanceof Collection<?>) {
-      return (T) createCollectionCopy((Collection<?>) obj, classOfTargetObject);
+      return (T) createCollectionCopy((Collection<?>) obj, classOfTargetObject, ignoreProperties);
     }
 
     try {
@@ -66,7 +67,6 @@ public abstract class AbstractAssembler implements Assembler {
       throw new IllegalCopyException("Could not create new instance of the target class.", e);
     }
   }
-
 
   /**
    * Return a new object (instance of "T") with all values copied from the the given object.
@@ -85,22 +85,35 @@ public abstract class AbstractAssembler implements Assembler {
    *
    * @param objs object to be copied
    * @param classOfTargetObject the class of the target object
+   * @param ignoreProperties properties to be ignored
+   * @param <T> return type
+   * @return T
+   */
+  protected <T> Collection<T> createCollectionCopy(Collection<?> objs, final Class<T> classOfTargetObject
+          , final String[] ignoreProperties) {
+
+    if (objs == null) {
+      return null;
+    }
+
+    Collection<T> targetObject = new ArrayList<>();
+
+    for (Object obj : objs) {
+      targetObject.add(this.assembly(obj, classOfTargetObject, ignoreProperties));
+    }
+    return targetObject;
+  }
+
+  /**
+   * Return a new object (instance of "T") with all values copied from the the given object.
+   *
+   * @param objs object to be copied
+   * @param classOfTargetObject the class of the target object
    * @param <T> return type
    * @return T
    */
   protected <T> Collection<T> createCollectionCopy(Collection<?> objs, final Class<T> classOfTargetObject) {
-    if (objs == null) {
-      return null;
-    }
-    Collection<T> targetObject;
-    try {
-      targetObject = (Collection<T>) classOfTargetObject.newInstance();
-    } catch (InstantiationException | IllegalAccessException e) {
-      throw new IllegalCopyException("Could not create new instance of the target class.", e);
-    }
-    for (Object obj : objs) {
-      targetObject.add(this.assembly(obj, classOfTargetObject));
-    }
-    return targetObject;
+    return this.createCollectionCopy(objs, classOfTargetObject, null);
   }
+
 }
