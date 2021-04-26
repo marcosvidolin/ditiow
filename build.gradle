@@ -81,7 +81,7 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-web', version: '3.2.18.RELEASE'
     // https://mvnrepository.com/artifact/org.aspectj/aspectjrt
     compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.6'
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.2'
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
 	testCompile group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
 	testCompile 'org.mockito:mockito-inline:2.8.9'
